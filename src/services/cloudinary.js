@@ -7,11 +7,11 @@
  */
 
 export const DEFAULT_CLOUDINARY_CONFIG = {
-  cloudName: 'bgumuh2m',
-  uploadPreset: 'repo_blueprint',
-  apiKey: '749746485129813',
-  apiSecret: 'vHBLCLMbDsdWOLR1Us4asZCGmVw',
-  folder: 'repo-blueprint',
+  cloudName: import.meta.env?.VITE_CLOUDINARY_CLOUD_NAME || 'bgumuh2m',
+  uploadPreset: import.meta.env?.VITE_CLOUDINARY_UPLOAD_PRESET || 'repo_blueprint',
+  apiKey: import.meta.env?.VITE_CLOUDINARY_API_KEY || '749746485129813',
+  apiSecret: import.meta.env?.VITE_CLOUDINARY_API_SECRET || 'vHBLCLMbDsdWOLR1Us4asZCGmVw',
+  folder: import.meta.env?.VITE_CLOUDINARY_FOLDER || 'repo-blueprint',
 };
 
 const STORAGE_KEY_PREFIX = 'rb_cloudinary_config_';

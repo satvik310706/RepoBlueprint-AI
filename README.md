@@ -152,6 +152,44 @@ The Vite dev server automatically proxies `/ollama` requests to `http://localhos
 | `npm run build` | Builds optimized production bundle in `dist/` |
 | `npm run preview` | Previews the production build locally |
 | `npm run lint` | Runs the high-performance Oxlint code linter |
+| `npm run docker:build` | Builds the multi-stage production Docker image |
+| `npm run docker:up` | Launches the production container on port 80 |
+| `npm run docker:down` | Stops the running Docker container |
+| `npm run docker:logs` | Streams live container logs |
+
+---
+
+## 🐳 Docker Production Deployment
+
+RepoBlueprint AI includes a production-hardened multi-stage Docker setup powered by **Nginx 1.27 Alpine** with automated Gzip compression, OWASP security headers, long-term asset caching, SPA routing, and dynamic Ollama reverse proxying.
+
+### 1. Quick Launch (1 Command)
+```bash
+# Build and start in detached mode
+docker compose up --build -d
+
+# Open in browser
+http://localhost
+```
+
+### 2. Windows 1-Click Launch
+Double-click `docker-run.bat` or run in CMD:
+```cmd
+docker-run.bat
+```
+
+### 3. All-in-One Full-Stack (With Bundled Ollama Container)
+If you want both RepoBlueprint and an isolated Ollama engine containerized together:
+```bash
+docker compose -f docker-compose.fullstack.yml up --build -d
+```
+
+### 4. Container Health Check
+Verify your production container health status:
+```bash
+curl http://localhost/health
+# Returns: healthy
+```
 
 ---
 

@@ -25,11 +25,11 @@ const CAPABILITIES = [
 ];
 
 export default function SetupScreen({ onComplete }) {
-  const [provider, setProvider] = useState('ollama');
-  const [geminiKey, setGeminiKey] = useState('');
-  const [geminiModel, setGeminiModel] = useState('gemini-2.5-flash');
-  const [ollamaUrl, setOllamaUrl] = useState('http://localhost:11434');
-  const [ollamaModel, setOllamaModel] = useState('llama3.2:3b');
+  const [provider, setProvider] = useState(() => import.meta.env?.VITE_DEFAULT_PROVIDER || 'ollama');
+  const [geminiKey, setGeminiKey] = useState(() => import.meta.env?.VITE_GEMINI_API_KEY || '');
+  const [geminiModel, setGeminiModel] = useState(() => import.meta.env?.VITE_GEMINI_MODEL || 'gemini-2.5-flash');
+  const [ollamaUrl, setOllamaUrl] = useState(() => import.meta.env?.VITE_OLLAMA_URL || 'http://localhost:11434');
+  const [ollamaModel, setOllamaModel] = useState(() => import.meta.env?.VITE_OLLAMA_MODEL || 'llama3.2:3b');
   const [customModel, setCustomModel] = useState('');
   const [keyError, setKeyError] = useState('');
   const [ollamaConnected, setOllamaConnected] = useState(false);

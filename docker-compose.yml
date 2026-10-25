@@ -1,0 +1,36 @@
+services:
+  repoblueprint:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_DEFAULT_PROVIDER: ${VITE_DEFAULT_PROVIDER:-ollama}
+        VITE_GEMINI_API_KEY: ${VITE_GEMINI_API_KEY:-}
+        VITE_GEMINI_MODEL: ${VITE_GEMINI_MODEL:-gemini-2.5-flash}
+        VITE_OLLAMA_URL: ${VITE_OLLAMA_URL:-http://localhost:11434}
+        VITE_OLLAMA_MODEL: ${VITE_OLLAMA_MODEL:-llama3.2:3b}
+        VITE_CLOUDINARY_CLOUD_NAME: ${VITE_CLOUDINARY_CLOUD_NAME:-bgumuh2m}
+        VITE_CLOUDINARY_UPLOAD_PRESET: ${VITE_CLOUDINARY_UPLOAD_PRESET:-repo_blueprint}
+        VITE_CLOUDINARY_API_KEY: ${VITE_CLOUDINARY_API_KEY:-749746485129813}
+    image: repoblueprint-ai:latest
+    container_name: repoblueprint-ai
+    restart: unless-stopped
+    ports:
+      - "${PORT:-80}:80"
+    environment:
+      - OLLAMA_HOST=${OLLAMA_HOST:-host.docker.internal:11434}
+    extra_hosts:
+      # Allows container to reach host services (like native Ollama daemon on host port 11434)
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
